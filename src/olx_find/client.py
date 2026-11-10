@@ -26,6 +26,11 @@ class OlxApiClient:
         *,
         pages: int = 1,
         location: str | None = None,
+        category: str | None = None,
+        sort: str | None = None,
+        seller_type: str | None = None,
+        condition: str | None = None,
+        filters: str | None = None,
         price_min: float | None = None,
         price_max: float | None = None,
     ) -> list[Ad]:
@@ -38,6 +43,11 @@ class OlxApiClient:
                     "query": query,
                     "page": page,
                     "location": location,
+                    "category": category,
+                    "sort": sort,
+                    "seller_type": seller_type,
+                    "condition": condition,
+                    "filters": filters,
                     "price_min": price_min,
                     "price_max": price_max,
                 },
@@ -55,6 +65,9 @@ class OlxApiClient:
             if not payload.get("results"):
                 break
         return ads
+
+    def category_filters(self, category: str) -> dict:
+        return self._get("/categories/filters", {"category": category})
 
     def enrich(self, ads: list[Ad]) -> list[Ad]:
         """Preenche descrição e atributos via /ads/details/batch (até 10 por call)."""

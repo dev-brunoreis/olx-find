@@ -41,16 +41,27 @@ python -m pip install -e .
 ## Usar
 
 ```bash
-olx-find "notebook i5 16gb" --pages 2 --state sp > out.csv
+olx-find --list-filters --category informatica/notebooks
+olx-find "i5" --category informatica/notebooks --state sp --max-price 5200 \
+  --filters "nt=3,nme=3" --pages 2 > out.csv
 olx-find "notebook" --min-price 1500 --max-price 4000 --details > out.csv
 ```
+
+`nt=3` é notebook gamer e `nme=3` é 32 GB de RAM. Cada chave aceita um valor por busca. Os códigos mudam por categoria: confirme com `--list-filters`.
 
 Flags:
 
 | Flag | Efeito |
 | --- | --- |
 | `--pages` | Páginas de `/ads/search` (50 anúncios cada, default 2) |
-| `--state` | UF, enviada como `location` da API (ex.: `sp`) |
+| `--state` | UF, enviada como `location` (ex.: `sp`) |
+| `--location` | UF, caminho regional ou id de `/locations/search`. Não combine com `--state` |
+| `--category` | Caminho ou código (ex.: `informatica/notebooks`) |
+| `--sort` | `relevance` (default), `newest` ou `lowest_price` |
+| `--seller-type` | `private` ou `professional` |
+| `--condition` | `new`, `used_excellent`, `used_good`, `refurbished` ou `defective` |
+| `--filters` | Filtros da categoria, `chave=valor` separados por vírgula |
+| `--list-filters` | Lista os filtros de `--category` e não busca anúncios |
 | `--min-price` / `--max-price` | Faixa de preço em BRL |
 | `--details` | Busca `/ads/details/batch` para descrição e atributos |
 | `--api-base` | URL do scraper (default `http://localhost:8000` ou `OLX_API_BASE`) |
