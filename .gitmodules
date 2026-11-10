@@ -1,0 +1,3 @@
+[submodule "vendor/olx-brazil-scraper"]
+	path = vendor/olx-brazil-scraper
+	url = https://github.com/omkarcloud/olx-brazil-scraper.git

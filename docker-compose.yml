@@ -1,0 +1,11 @@
+services:
+  olx-scraper:
+    build: ./vendor/olx-brazil-scraper
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: "8000"
+      # Deixe vazio salvo se a Cloudflare da OLX bloquear o IP.
+      # Proxy residencial brasileiro funciona melhor.
+      OLX_BRAZIL_PROXY: ${OLX_BRAZIL_PROXY:-}
